@@ -1,2 +1,2 @@
-# D-projects
-Implementations in D- language
+# Turing Machine in D 
+Turing Machine Interpreter in D from online tutorials....

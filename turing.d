@@ -24,11 +24,23 @@ struct Turd{
   State next;
 }
 
-auto parseTurd(string filepath, Tuple!(int,string )s){
-  auto tokens= s[1].split!isWhite.map(x=>x.strip).array;
+struct Machine{
+  Symbol[] tape;
+  int head;
+  State state;
+
+  bool next(Program program){
+    return false;
+  }
+  void dump(){
+    
+  }
+}
+Turd parseTurd(string filepath, Tuple!(int,"index",string ,"value")s){
+  auto tokens= s.value.split!isWhite.map(x=>x.strip).array;
   if (tokens.length!=5){
-    writeln(filepath,":",s[0],":A single turd is expected to have 5 tokens");
-    exit(1);
+    writeln(filepath,":",s.index,":A single turd is expected to have 5 tokens");
+    assert(0);
   }
 
   immutable int CURRENT=0;
@@ -50,6 +62,7 @@ auto parseTurd(string filepath, Tuple!(int,string )s){
       break;
     default:
       writeln(filepath,":", s[0],": `", tokens[STEP],"` is not a correct step.Expected 'L' or 'R'");
+      assert(0);
     
   }
   turd.step=parse!Step(tokens[STEP]);
@@ -58,17 +71,24 @@ auto parseTurd(string filepath, Tuple!(int,string )s){
 }
 
 int main(string[] args){
+  assert(0);
   if(args.length<2){
     stderr.writeln("ERROR:input file is not provided");
     stderr.writeln("Usage: turd <input.turd>");
     return 1;
   }
-  writeln(
-    readText(args[1])
-    .splitLines
+  auto filepath=args[1];
+  auto turds = readText(filepath)
+    .splitlines
     .map!(x=>x.strip)
     .enumerate(1)
     .filter!(x=>x[1].length>0)
-    .map!(x=>parseTurd(filepath,x)));
+    .map!(x=>parseTurd(filepath,x));
+  writeln(turds);
+
+  Machine machine;
+  while(machine.next()){
+    machine.dump();
+  }
   return 0;
 }

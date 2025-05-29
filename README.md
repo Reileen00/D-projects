@@ -1,7 +1,6 @@
 # Turing Machine in D 
 Turing Machine Interpreter in D from online tutorials....
-
-We implemented a Turing machine like-
+IDK what I am doing in my life anymore, I just watched Tsoding's tutorial and wanted to include the code in my repository IDK what this means but yeah. tsoding is so orz
 ## State Table for 3-State, 2-Symbol Busy Beaver
 
 | Tape Symbol | Current State | Write Symbol | Move Tape | Next State |
